@@ -112,95 +112,17 @@ housingCounts <- table(banktrain$subscribed, banktrain$housing)  # Using variabl
 housingCounts <- housingCounts/rowSums(housingCounts)
 housingCounts
 
-subscribed_col <- grep("subscribed", colnames(banktrain), ignore.case = TRUE)[1]  # Assuming "subscribed" is the pattern
-loan_col <- grep("loan", colnames(banktrain), ignore.case = TRUE)[1]  # Assuming "loan" is the pattern
-# Check if 'subscription_status' or 'has_loan' exist
-if (any(c("subscription_status", "has_loan") %in% colnames(banktrain))) {
-  # Use columns if they exist
-  loanCounts <- table(banktrain[, c("subscription_status", "has_loan")])
-} else {
-  # Handle situation where columns are missing (print message or adjust analysis)
-  print("Columns 'subscription_status' and 'has_loan' not found in banktrain data frame. Consider using different variables or obtaining data with the desired information.")
-}
+loanCounts <- table(banktrain[,c("subscribed", "loan")])
+loanCounts <- loanCounts/rowSums(loanCounts)
+loanCounts
 
-if (exists("loanCounts")) {  # Check if loanCounts exists
-  loanCounts <- loanCounts / rowSums(loanCounts)
-  print(loanCounts)  # Print the table with row percentages
-} else {
-  print("loanCounts table not found. Please create the table before calculating row percentages.")
-}
+contactCounts <- table(banktrain[,c("subscribed", "contact")])
+contactCounts <- contactCounts/rowSums(contactCounts)
+contactCounts
 
-subscription_pattern <- grep("subscription|subscribed", colnames(banktrain), ignore.case = TRUE)
-loan_pattern <- grep("loan", colnames(banktrain), ignore.case = TRUE)
-
-# Check if any patterns were found
-if (length(subscription_pattern) > 0 && length(loan_pattern) > 0) {
-  subscription_col <- colnames(banktrain)[subscription_pattern[1]]
-  loan_col <- colnames(banktrain)[loan_pattern[1]]
-  loanCounts <- table(banktrain[, c(subscription_col, loan_col)])
-  print(loanCounts)  # Print the table if created
-} else {
-  print("Couldn't find columns related to subscription or loan status")
-}
-
-
-
-subscription_pattern <- grep("subscription|subscribed", colnames(banktrain), ignore.case = TRUE)
-contact_pattern <- grep("contact", colnames(banktrain), ignore.case = TRUE)
-
-# Check if any patterns were found
-if (length(subscription_pattern) > 0 && length(contact_pattern) > 0) {
-  subscription_col <- colnames(banktrain)[subscription_pattern[1]]
-  contact_col <- colnames(banktrain)[contact_pattern[1]]
-  contactCounts <- table(banktrain[, c(subscription_col, contact_col)])
-  print(contactCounts)  # Print the table if created
-} else {
-  print("Couldn't find columns related to subscription or contact method")
-}
-
-if (exists("contactCounts")) {  # Check if contactCounts exists
-  contactCounts <- contactCounts / rowSums(contactCounts)
-  print(contactCounts)  # Print the table with row percentages
-} else {
-  print("contactCounts table not found. Please create the table before calculating row percentages.")
-}
-
-if (exists("contactCounts")) {
-  contactCounts <- contactCounts / rowSums(contactCounts)
-  print(contactCounts)
-} else {
-  print("contactCounts table not found. Please create the table before calculating row percentages.")
-}
-
-
-subscription_pattern <- grep("subscription|subscribed", colnames(banktrain), ignore.case = TRUE)
-poutcome_pattern <- grep("poutcome|outcome|campaign", colnames(banktrain), ignore.case = TRUE)
-
-# Check if any patterns were found
-if (length(subscription_pattern) > 0 && length(poutcome_pattern) > 0) {
-  subscription_col <- colnames(banktrain)[subscription_pattern[1]]
-  poutcome_col <- colnames(banktrain)[poutcome_pattern[1]]
-  poutcomeCounts <- table(banktrain[, c(subscription_col, poutcome_col)])
-  print(poutcomeCounts)  # Print the table if created
-} else {
-  print("Couldn't find columns related to subscription or poutcome")
-}
-
-if (exists("poutcomeCounts")) {  # Check if poutcomeCounts exists
-  poutcomeCounts <- poutcomeCounts / rowSums(poutcomeCounts)
-  print(poutcomeCounts)  # Print the table with row percentages
-} else {
-  print("poutcomeCounts table not found. Please create the table before calculating row percentages.")
-}
-
-if (exists("poutcomeCounts")) {
-  poutcomeCounts <- poutcomeCounts / rowSums(poutcomeCounts)
-  print(poutcomeCounts)  # Print table with row percentages
-} else {
-  print("poutcomeCounts table not found. Please create the table before calculating row percentages.")
-}
-
-
+poutcomeCounts <- table(banktrain[,c("subscribed", "poutcome")])
+poutcomeCounts <- poutcomeCounts/rowSums(poutcomeCounts)
+poutcomeCounts
 
 
 install.packages("e1071") # install package e1071
